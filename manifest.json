@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "clipnote",
+  "version": "0.1.0",
+  "description": "영상을 문서로. 애매한 순간은 실제 화면으로 — 유튜브 how-to를 시각 가이드 문서로 변환",
+  "permissions": ["storage"],
+  "host_permissions": ["https://generativelanguage.googleapis.com/*"],
+  "background": { "service_worker": "bg.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/watch*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html",
+  "action": { "default_title": "clipnote 설정", "default_popup": "options.html" }
+}
