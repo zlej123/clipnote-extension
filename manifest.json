@@ -2,7 +2,12 @@
   "manifest_version": 3,
   "name": "clipnote",
   "version": "0.1.0",
-  "description": "영상을 문서로. 애매한 순간은 실제 화면으로 — 유튜브 how-to를 시각 가이드 문서로 변환",
+  "description": "Turn how-to YouTube videos into documents. Ambiguous spoken steps get the actual video frame.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": ["storage"],
   "host_permissions": ["https://generativelanguage.googleapis.com/*"],
   "background": { "service_worker": "bg.js" },
@@ -15,5 +20,13 @@
     }
   ],
   "options_page": "options.html",
-  "action": { "default_title": "clipnote 설정", "default_popup": "options.html" }
+  "action": {
+    "default_title": "clipnote settings",
+    "default_popup": "options.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  }
 }
