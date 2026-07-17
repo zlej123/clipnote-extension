@@ -17,7 +17,15 @@ No server required — you bring your own Gemini key. Nothing is downloaded from
 
 ## Use
 
-On a watch page, click the **📋 clipnote** button (bottom right) → analyze → pick frames → build the document.
+On a watch page, click the **📋 clipnote** button (bottom right) → analyze → pick frames → export:
+
+- **Build document** — downloads `document.md` plus the selected images.
+- **Open in Obsidian** — creates the note directly in your vault via `obsidian://new` (no API key;
+  set the vault name in options, or leave it empty to use the last-opened vault). Selected images
+  are downloaded alongside; drop them next to the note to make them show.
+- **Copy for Notion** — copies the document as Markdown; paste into any Notion page and the
+  formatting converts automatically. Scenes become YouTube timestamp links (paste can't carry
+  images; for embedded images use the core CLI's `--target notion`).
 
 - The player seeks around (muted) during capture, then returns to where you were.
 - If no candidate fits a guide, choose "unusable"; it becomes a YouTube timestamp link instead.

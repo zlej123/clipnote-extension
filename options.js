@@ -1,5 +1,5 @@
-const FIELDS = ["apiKey", "language", "model", "serverUrl"];
-const DEFAULTS = { apiKey: "", language: "ko", model: "gemini-flash-lite-latest", serverUrl: "" };
+const FIELDS = ["apiKey", "language", "model", "serverUrl", "vault"];
+const DEFAULTS = { apiKey: "", language: "ko", model: "gemini-flash-lite-latest", serverUrl: "", vault: "" };
 
 chrome.storage.sync.get(FIELDS).then((saved) => {
   for (const field of FIELDS) {

@@ -148,20 +148,57 @@
     ui(`
       <p><b>${analysis.title}</b> — 가이드별로 의미가 가장 잘 보이는 장면을 고르세요.</p>
       ${cards}
-      <button id="cn-make" class="cn-primary">문서 만들기 (.md + 이미지 다운로드)</button>`);
+      <div class="cn-actions">
+        <button id="cn-make" class="cn-primary">문서 만들기 (.md + 이미지)</button>
+        <button id="cn-obsidian" class="cn-secondary">Obsidian에서 열기</button>
+        <button id="cn-copy" class="cn-secondary">Notion용 복사</button>
+      </div>`);
 
-    panel.querySelector("#cn-make").onclick = () => {
+    const collectPicks = () => {
       const picks = {};
       for (const guide of guides) {
         picks[guide.id] = panel.querySelector(`input[name="${guide.id}"]:checked`)?.value || "none";
       }
-      const markdown = buildMarkdown(vid, analysis, picks);
-      download("document.md", markdown);
+      return picks;
+    };
+    const downloadImages = (picks) => {
       for (const [guideId, slot] of Object.entries(picks)) {
         if (slot !== "none") download(`${guideId}.jpg`, shots[guideId][slot]);
       }
+    };
+
+    panel.querySelector("#cn-make").onclick = () => {
+      const picks = collectPicks();
+      download("document.md", buildMarkdown(vid, analysis, picks));
+      downloadImages(picks);
       ui(`<p>완료! document.md와 선택한 이미지가 다운로드됐습니다.<br>
           같은 폴더에 두면 마크다운에서 이미지가 바로 보입니다.</p>`);
+    };
+
+    // Obsidian: obsidian://new URI로 노트 즉시 생성 (API 키 불필요).
+    // 이미지는 URI로 전달할 수 없어 함께 다운로드하고, 노트 폴더에 넣으면 표시된다.
+    panel.querySelector("#cn-obsidian").onclick = async () => {
+      const picks = collectPicks();
+      const { vault } = await chrome.storage.sync.get("vault");
+      const name = "clipnote/" + analysis.title.replace(/[\\/:*?"<>|#^\[\]]/g, " ").trim();
+      const uri = "obsidian://new?" +
+        (vault ? `vault=${encodeURIComponent(vault)}&` : "") +
+        `file=${encodeURIComponent(name)}&content=${encodeURIComponent(buildMarkdown(vid, analysis, picks))}`;
+      const anchor = document.createElement("a");
+      anchor.href = uri;
+      anchor.click();
+      const nImages = Object.values(picks).filter((s) => s !== "none").length;
+      downloadImages(picks);
+      ui(`<p>Obsidian에 노트를 생성했습니다 (clipnote 폴더).${nImages
+          ? `<br>이미지 ${nImages}장은 다운로드됐습니다 — 노트가 있는 폴더로 옮기면 표시됩니다.` : ""}</p>`);
+    };
+
+    // Notion: 마크다운을 클립보드로 복사 → Notion에 붙여넣으면 서식 자동 변환.
+    // 이미지는 붙여넣기로 전달되지 않으므로 모든 가이드를 타임스탬프 링크로 대체한다.
+    panel.querySelector("#cn-copy").onclick = async () => {
+      await navigator.clipboard.writeText(buildMarkdown(vid, analysis, {}));
+      ui(`<p>복사됐습니다. Notion 페이지에서 붙여넣기(Ctrl+V)하면 서식이 그대로 변환됩니다.<br>
+          장면은 유튜브 타임스탬프 링크로 들어갑니다.</p>`);
     };
   }
 
