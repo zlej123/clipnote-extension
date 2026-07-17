@@ -10,7 +10,7 @@ from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
 
 HERE = Path(__file__).parent
-source = Path(sys.argv[1] if len(sys.argv) > 1 else HERE.parent / "clipnote") / "skill-core"
+source = Path(sys.argv[1] if len(sys.argv) > 1 else HERE.parent / "clipnote") / "src" / "clipnote" / "skill-core"
 if not source.exists():
     sys.exit(f"skill-core 없음: {source}")
 destination = HERE / "assets" / "skill-core"
