@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "clipnote",
   "version": "0.2.0",
-  "description": "Turn how-to YouTube videos into documents. Ambiguous spoken steps get the actual video frame.",
+  "description": "Turn videos into documents, recipes, and user manuals. Ambiguous spoken steps get the actual video frame.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
