@@ -4,7 +4,7 @@
 
 - **이름**: clipnote
 - **요약(짧은 설명, 132자 이내)**:
-  Turn how-to YouTube videos into documents. Ambiguous spoken steps get the actual video frame.
+  Turn videos into documents, recipes, and user manuals. Ambiguous spoken steps get the actual video frame.
 - **카테고리**: Productivity → Tools
 - **언어**: English (한국어 설명 추가 가능)
 
