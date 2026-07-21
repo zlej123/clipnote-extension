@@ -50,9 +50,23 @@ python pack.py                 # → dist/clipnote-extension-0.2.0.zip
 
 ---
 
-## 3. 스크린샷 만들기 (유일하게 남은 자산)
+## 3. 스크린샷
 
-확장을 로컬 크롬에 로드해서 실제 화면을 찍는다.
+**바로 쓸 수 있는 스크린샷이 준비돼 있다: [`docs/store/screenshot-1280x800.png`](store/screenshot-1280x800.png)**
+
+실제 패널 CSS(`content.css`) + 코어의 실제 캡처 프레임(`clipnote/docs/demo/`)으로 만든 충실한
+홍보용 합성 이미지다(라이브 캡처가 아니라 조립본 — UI·프레임·문구는 전부 진짜). 그대로 업로드해도 되고,
+소스는 `docs/store/screenshot.html`이라 문구를 바꿔 재생성할 수 있다:
+
+```bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu \
+  --force-device-scale-factor=1 --window-size=1280,800 \
+  --screenshot=docs/store/screenshot-1280x800.png "file://$PWD/docs/store/screenshot.html"
+```
+
+### 라이브 캡처로 바꾸고 싶다면 (선택)
+
+최대한 진짜에 가깝게 하려면 확장을 로컬 크롬에 로드해서 실제 화면을 찍는다.
 
 1. `chrome://extensions` → 우상단 **개발자 모드** 켜기
 2. **압축해제된 확장 프로그램을 로드** → `~/dev/clipnote-extension` 폴더 선택
